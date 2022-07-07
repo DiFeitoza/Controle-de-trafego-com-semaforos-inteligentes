@@ -15,5 +15,8 @@
     <gui_only>
     	<start value="true"/>
 	</gui_only>
+	<!-- diego: incluí o report porque estava retornando erro -->
+	<report>
+		<xml-validation value="never"/>
+	</report>
 </configuration>
-

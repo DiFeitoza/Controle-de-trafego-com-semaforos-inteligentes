@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
+<report>
+    <xml-validation value="never"/>
+</report>
 <configuration>
 	<input>
 		<net-file value="MAS.net.xml"/>
@@ -16,4 +19,3 @@
     	<start value="true"/>
 	</gui_only>
 </configuration>
-

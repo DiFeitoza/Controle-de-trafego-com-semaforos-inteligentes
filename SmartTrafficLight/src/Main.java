@@ -16,6 +16,7 @@ public class Main {
 
     static boolean JADE_GUI = true;
     private static ProfileImpl profile;
+    //diego: contém os agentes
     private static ContainerController mainContainer;
 
     public static void main(String[] args) throws UnimplementedMethod, InterruptedException, IOException,
@@ -48,10 +49,10 @@ public class Main {
         //Add SUMO para TraSMAPI
         api.addSimulator(sumo);
 
-        //Executa e conecta todos os simuladores adicionado
+        //Executa e conecta todos os simuladores adicionados
         api.launch();
-
         api.connect();
+        
         //Criação dos agentes
         AgentsManager manager = new AgentsManager(sumo, mainContainer);
         manager.startupAgents(mainContainer);
@@ -62,6 +63,7 @@ public class Main {
         	if (!api.simulationStep(0) || sumo.getCurrentSimStep() / 1000 >= 5000)
                 break;
         	if(sumo.getCurrentSimStep() / 1000 > 90 && sumo.getCurrentSimStep() / 1000 % 90 == 0)
+        		//diego: valor default 1000, 10000 para análise, para no passo 179 a primeira vez
         		Thread.sleep(1000);
         }
     }

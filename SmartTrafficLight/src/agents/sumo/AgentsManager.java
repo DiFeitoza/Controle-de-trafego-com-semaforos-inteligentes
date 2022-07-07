@@ -17,25 +17,22 @@ public class AgentsManager {
 
     public AgentsManager(Sumo sumo, ContainerController mainContainer) {
         ArrayList<String> tlsIds = SumoTrafficLight.getIdList();
-
+        
         for (String tlId : tlsIds) {
             SumoTrafficLight tl = new SumoTrafficLight(tlId);
-
             TrafficLightAgent agent;
-
+            
             try {
                 agent = new TrafficLightAgent(sumo, tlId);
-
                 agents.add(agent);
                 mainContainer.acceptNewAgent("TrafficLight-" + tlId, agent);
-
-            } catch (Exception e) {
+            }
+            catch (Exception e) {
                 e.printStackTrace();
                 System.exit(1);
             }
         }
     }
-
 
     public void startupAgents(ContainerController mainContainer) {
         try {
