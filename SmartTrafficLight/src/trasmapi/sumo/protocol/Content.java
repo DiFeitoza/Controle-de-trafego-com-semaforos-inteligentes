@@ -271,7 +271,7 @@ public class Content {
     private void writeByte(int value) {
         //if (value < -128 || value > 127)
         //    throw new IllegalArgumentException("only range from -128 to 127.");
-        varValue.add(new Byte( (byte)(value) ));
+        varValue.add(Byte.valueOf( (byte)(value) ));
     }
 
     private void writeInt(int value) {
@@ -441,16 +441,16 @@ public class Content {
             
             switch (type) {            
             case Constants.TYPE_DOUBLE:
-                items.add(new Pair<Integer, Object>(new Integer(type), readDouble(it)));
+                items.add(new Pair<Integer, Object>(Integer.valueOf(type), readDouble(it)));
                 break;
             case Constants.TYPE_STRING:
-                items.add(new Pair<Integer, Object>(new Integer(type), readString(it)));
+                items.add(new Pair<Integer, Object>(Integer.valueOf(type), readString(it)));
                 break;
             case Constants.TYPE_INTEGER:
-                items.add(new Pair<Integer, Object>(new Integer(type), readInt(it)));
+                items.add(new Pair<Integer, Object>(Integer.valueOf(type), readInt(it)));
                 break;
             case Constants.TYPE_BYTE:
-                items.add(new Pair<Integer, Object>(new Integer(type), readByte(it)));
+                items.add(new Pair<Integer, Object>(Integer.valueOf(type), readByte(it)));
                 break;
             case Constants.TYPE_UBYTE:
                 // TODO:
@@ -462,7 +462,7 @@ public class Content {
                 // TODO:
                 break;
             case Constants.TYPE_COMPOUND:
-                items.add(new Pair<Integer, Object>(new Integer(type), readCompound(it)));
+                items.add(new Pair<Integer, Object>(Integer.valueOf(type), readCompound(it)));
                 break;
             }
         }

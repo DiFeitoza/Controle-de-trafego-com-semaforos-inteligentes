@@ -1,14 +1,9 @@
 package utils;
 
-import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.SequenceInputStream;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 import org.w3c.dom.Document;
@@ -22,24 +17,24 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
 public class E3Detector {
-	 File fXmlFile;
-	 FileInputStream file;
-	 DocumentBuilderFactory dbFactory;
-	 DocumentBuilder dBuilder;
+	 File fileE3AddXML;
+	 FileInputStream fileInputStreamE3AddXML;
+	 DocumentBuilderFactory docBuilderFactory;
+	 DocumentBuilder docBuilder;
 	 Document doc;
 	
 	public  boolean initialize() {
 		try {
-			fXmlFile = new File("network/e3.add.xml");
-			file = new FileInputStream(fXmlFile);
+			fileE3AddXML = new File("network/e3.add.xml");
+			fileInputStreamE3AddXML = new FileInputStream(fileE3AddXML);
 		}catch (Exception e) {
 			// TODO: handle exception
-			System.out.println("Erro de leitura: " + fXmlFile);
+			System.out.println("Erro de leitura: " + fileE3AddXML);
 		}
-		dbFactory = DocumentBuilderFactory.newInstance();
+		docBuilderFactory = DocumentBuilderFactory.newInstance();
 		try {
-			dBuilder = dbFactory.newDocumentBuilder();
-			doc = dBuilder.parse(file);
+			docBuilder = docBuilderFactory.newDocumentBuilder();
+			doc = docBuilder.parse(fileInputStreamE3AddXML);
 			return true;
 		} catch (ParserConfigurationException e) {
 			// TODO Auto-generated catch block
@@ -64,7 +59,7 @@ public class E3Detector {
 		
 		for (int i = 0; i < detectors.getLength(); i++) {
 			Node detectorNode = detectors.item(i);
-//			Verifica se o elemento é valido		
+//			Verifica se o elemento ï¿½ valido		
 			if (detectorNode.getNodeType() == Node.ELEMENT_NODE) {
 				Element element = (Element) detectorNode;
 					if(element.getAttribute("id").split("_")[1].equals(id))
