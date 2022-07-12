@@ -16,7 +16,7 @@ public class Main {
 
     static boolean JADE_GUI = true;
     private static ProfileImpl profile;
-    //diego: contém os agentes
+    //diego: contï¿½m os agentes
     private static ContainerController mainContainer;
 
     public static void main(String[] args) throws UnimplementedMethod, InterruptedException, IOException,
@@ -40,9 +40,15 @@ public class Main {
         List<String> params = new ArrayList<String>();
 
         params.add("--device.emissions.probability=1.0");
-//        params.add("--tripinfo-output=network/logs/trip.xml");
+        //diego: inicio modificaÃ§Ã£o
+		//params.add("--print-options=true");
+		//params.add("--aggregate-warnings=1");
+		params.add("--output-prefix=TIME");
+        params.add("--error-log=./network/output/_error-log");
+        params.add("--queue-output=./network/output/_queue.xml");
+        params.add("--tripinfo-output=./network/output/_trip.xml");
+        //diego: fim modificaÃ§Ã£o
         params.add("-c=network/MAS.sumocfg");
-        params.add("--tripinfo-output=output.xml");
         sumo.addParameters(params);
         sumo.addConnections("127.0.0.1", 8813);
 
@@ -53,7 +59,7 @@ public class Main {
         api.launch();
         api.connect();
         
-        //Criação dos agentes
+        //CriaÃ§Ã£o dos agentes
         AgentsManager manager = new AgentsManager(sumo, mainContainer);
         manager.startupAgents(mainContainer);
         
@@ -62,9 +68,9 @@ public class Main {
         while (true) {
         	if (!api.simulationStep(0) || sumo.getCurrentSimStep() / 1000 >= 5000)
                 break;
+        	//??? diego: seria mais correto pegar o tempo antes, em uma variï¿½vel?
         	if(sumo.getCurrentSimStep() / 1000 > 90 && sumo.getCurrentSimStep() / 1000 % 90 == 0)
-        		//diego: valor default 1000, 10000 para análise, para no passo 179 a primeira vez
-        		Thread.sleep(1000);
-        }
-    }
+				Thread.sleep(1000);
+		}
+	}
 }
