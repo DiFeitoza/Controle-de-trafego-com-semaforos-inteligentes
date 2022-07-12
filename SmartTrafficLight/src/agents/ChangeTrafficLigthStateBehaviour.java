@@ -17,10 +17,10 @@ import utils.E3Detector;
 public class ChangeTrafficLigthStateBehaviour extends CyclicBehaviour {
 
 	private TrafficLightAgent trafficLightAgent;	
-	//Eficiencia do semï¿½foro na liberaï¿½ï¿½o da passagem de cada veï¿½culo
-	//Cada sensor tem uma direï¿½ï¿½o associada, Leste-Oeste, Norte-Sul
+	//Eficiencia do semáforo na liberação da passagem de cada veículo
+	//Cada sensor tem uma direção associada, Leste-Oeste, Norte-Sul
 	private double[] lsEficienciaLO, lsEficienciaNS;
-	//Indice geral da direï¿½ï¿½o em questï¿½o, ï¿½ assumido pelo menor ï¿½ndice em cada direï¿½ï¿½o.
+	//Indice geral da direção em questão, é assumido pelo menor índice em cada direção.
 	double indGeralLO, indGeralNS;
 	double mediaLO = 0, mediaNS = 0;
 	int position, quantity;
@@ -50,10 +50,10 @@ public class ChangeTrafficLigthStateBehaviour extends CyclicBehaviour {
 				SumoE3Detector sumoE3Detector = new SumoE3Detector(e3detectorName);
 				SumoLane lane = new SumoLane(e3detectorName.split("_")[2] + "_0");
 				double tempoMinimoNaVia = lane.getLength() / lane.getMaxSpeed();
-				// diego: A velocidade mï¿½dia dos veï¿½culos na faixa especï¿½fica
+				// diego: A velocidade média dos veículos na faixa específica
 				double meanSpeed = sumoE3Detector.getMenSpeed();
 				double meanTime;
-				//??? se nï¿½o houver mï¿½dia, considere o fluxo livre, tempo mï¿½nimo na via? 
+				//??? se não houver média, considere o fluxo livre, tempo mínimo na via? 
 				meanTime = (meanSpeed == -1) ? tempoMinimoNaVia : (lane.getLength() / meanSpeed);
 				aux = meanTime / tempoMinimoNaVia;
 				if (e3detectorName.split("_")[3].equals("lo")) {
@@ -67,14 +67,14 @@ public class ChangeTrafficLigthStateBehaviour extends CyclicBehaviour {
 				}
 			}
 			// Calcular Glo e Gns
-			//??? diego: por quï¿½ o ï¿½ndice geral se ele nï¿½o ï¿½ alterado? 
+			//??? diego: por quê o índice geral se ele não é alterado? 
 			indGeralLO = efficiencyLO;
 			indGeralNS = efficiencyNS;
 			// preencher Ilo e Ins
 			lsEficienciaLO[position] = indGeralLO;
 			lsEficienciaNS[position] = indGeralNS;
 			position = ++position % 3;
-			//??? diego:aqui sï¿½ faz a mï¿½dia 1x?
+			//??? diego:aqui só faz a média 1x?
 			if (quantity < 3)
 				quantity++;
 			// preencher Mlo e Mns
@@ -82,8 +82,8 @@ public class ChangeTrafficLigthStateBehaviour extends CyclicBehaviour {
 				mediaLO = (lsEficienciaLO[0] + lsEficienciaLO[1] + lsEficienciaLO[2]) / 3;
 				mediaNS = (lsEficienciaNS[0] + lsEficienciaNS[1] + lsEficienciaNS[2]) / 3;
 			}
-			// Alteraï¿½ï¿½o de plano semï¿½forico
-			//??? diego: modifiquei o maior '>' para que envie mensagens sempre que houver diferenï¿½a de mais de 10%. linha anterior: if (Math.abs(mediaLO - mediaNS) > 0.1) {
+			// Alteração de plano semáforico
+			//??? diego: modifiquei o maior '>' para que envie mensagens sempre que houver diferença de mais de 10%. linha anterior: if (Math.abs(mediaLO - mediaNS) > 0.1) {
 			if (Math.abs(mediaLO - mediaNS) > 0.1) {
 				if (mediaLO > mediaNS)
 					sumoTrafficLight.setProgram(createProgram(sumoTrafficLight, 2));
@@ -133,7 +133,7 @@ public class ChangeTrafficLigthStateBehaviour extends CyclicBehaviour {
 				newProgram.addPhase(phase.getDuration() - 1, phase.getState());
 				if (type == 1) {
 					for (char c : phase.getState().toCharArray()) {
-						//??? diego: por quï¿½ alterna apenas entre 'r' e 'y' ou 'g e 'y'?
+						//??? diego: por quê alterna apenas entre 'r' e 'y' ou 'g e 'y'?
 						if (Character.toLowerCase(c) == 'g')
 							newState += 'r';
 						else if (Character.toLowerCase(c) == 'r')
