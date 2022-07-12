@@ -1,7 +1,6 @@
 package trasmapi.sumo;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import trasmapi.genAPI.exceptions.WrongCommand;
 import trasmapi.sumo.protocol.Command;
