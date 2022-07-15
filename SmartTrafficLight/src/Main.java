@@ -16,7 +16,7 @@ public class Main {
 
     static boolean JADE_GUI = true;
     private static ProfileImpl profile;
-    //diego: cont�m os agentes
+    //diego: contém os agentes
     private static ContainerController mainContainer;
 
     public static void main(String[] args) throws UnimplementedMethod, InterruptedException, IOException,
@@ -35,19 +35,17 @@ public class Main {
 
         // Iniciar TraSMAPI framework
         TraSMAPI api = new TraSMAPI();
-        //Criar SUMO
+        // Criar SUMO
         Sumo sumo = new Sumo("guisim");
         List<String> params = new ArrayList<String>();
 
         params.add("--device.emissions.probability=1.0");
-        //diego: inicio modificação
 		//params.add("--print-options=true");
 		//params.add("--aggregate-warnings=1");
 		params.add("--output-prefix=TIME");
         params.add("--error-log=./network/output/_error-log");
         params.add("--queue-output=./network/output/_queue.xml");
         params.add("--tripinfo-output=./network/output/_trip.xml");
-        //diego: fim modificação
         params.add("-c=network/MAS.sumocfg");
         sumo.addParameters(params);
         sumo.addConnections("127.0.0.1", 8813);
@@ -68,7 +66,7 @@ public class Main {
         while (true) {
         	if (!api.simulationStep(0) || sumo.getCurrentSimStep() / 1000 >= 5000)
                 break;
-        	//??? diego: seria mais correto pegar o tempo antes, em uma vari�vel?
+        	// diego: seria mais correto pegar o tempo antes, em uma variável?
         	if(sumo.getCurrentSimStep() / 1000 > 90 && sumo.getCurrentSimStep() / 1000 % 90 == 0)
 				Thread.sleep(1000);
 		}
