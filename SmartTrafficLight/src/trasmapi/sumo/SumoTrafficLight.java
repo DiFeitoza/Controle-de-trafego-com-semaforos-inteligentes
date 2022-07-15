@@ -154,8 +154,8 @@ public class SumoTrafficLight extends TrafficLight {
 	}
 	
 	public void setProgram(SumoTrafficLightProgram program) {
-        Command cmd = new Command(Constants.CMD_SET_TL_VARIABLE);        
-        Content cnt = new Content((byte)Constants.TL_COMPLETE_PROGRAM_RYG, id, Constants.TYPE_COMPOUND);
+        Command command = new Command(Constants.CMD_SET_TL_VARIABLE);        
+        Content content = new Content((byte)Constants.TL_COMPLETE_PROGRAM_RYG, id, Constants.TYPE_COMPOUND);
         
         List<Phase> phases = program.getPhases();
         
@@ -174,12 +174,11 @@ public class SumoTrafficLight extends TrafficLight {
             items.add(new Pair<Integer,Object>(Constants.TYPE_INTEGER, phase.getDuration())); // unused value
             items.add(new Pair<Integer,Object>(Constants.TYPE_STRING, phase.getState())); // red/yellow/green lights
         }
-        cnt.setCompound(items);
-
-        cmd.setContent(cnt);
+        content.setCompound(items);
+        command.setContent(content);
 
         RequestMessage reqMsg = new RequestMessage();
-        reqMsg.addCommand(cmd);        
+        reqMsg.addCommand(command);        
 
         try {
             SumoCom.query(reqMsg);

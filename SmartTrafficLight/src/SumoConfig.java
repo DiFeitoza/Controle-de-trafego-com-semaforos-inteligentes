@@ -80,7 +80,7 @@ public class SumoConfig {
         SumoConfig             conf     = new SumoConfig(file);
         
         root.normalize();
-        NodeList server = root.getElementsByTagName("traci_server");        
+        NodeList server = root.getElementsByTagName("traci_server");  
         NodeList serverProperties = server.item(0).getChildNodes();
         
         for (int i = 0; i < serverProperties.getLength(); i++) {

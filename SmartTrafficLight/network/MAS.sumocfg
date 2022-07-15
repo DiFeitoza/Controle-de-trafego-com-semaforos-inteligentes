@@ -15,5 +15,7 @@
     <gui_only>
     	<start value="true"/>
 	</gui_only>
+	<report>
+		<xml-validation value="never"/>
+	</report>
 </configuration>
-

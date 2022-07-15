@@ -28,7 +28,7 @@ public class Buffer {
 		if (value < -128 || value > 127)
 			throw new IllegalArgumentException("Error writing byte: byte value may only range from -128 to 127.");
 
-		bytes.add(new Byte( (byte)(value) ));
+		bytes.add(Byte.valueOf( (byte)(value) ));
 	}
 	
 	/**
